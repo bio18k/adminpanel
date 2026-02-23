@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Challenge Gym Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Вставьте это сразу после <body> в admin.html -->
+<div id="simpleLogin" style="text-align: center; padding: 50px;">
+    <h2>🔐 Вход в админку</h2>
+    <input type="password" id="simplePassword" placeholder="Пароль">
+    <button onclick="simpleLogin()">Войти</button>
+    <p id="simpleError" style="color: red;"></p>
+</div>
+
+<div id="adminPanel" style="display: none;">
+    <!-- Вся ваша админка -->
+</div>
+
+<script>
+function simpleLogin() {
+    const password = document.getElementById('simplePassword').value;
+    if (password === 'gym2026' || password === 'manager123') {
+        document.getElementById('simpleLogin').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+    } else {
+        document.getElementById('simpleError').textContent = 'Неверный пароль';
+    }
+}
+</script>
+  <div id="loginScreen" class="login-container">
+    <div class="login-box">
+      <h2>🔐 Вход в админ-панель</h2>
+      <p>Challenge Gym</p>
+      <input type="password" id="passwordInput" placeholder="Введите пароль" class="login-input">
+      <select id="userSelect" class="login-input">
+        <option value="admin">Администратор</option>
+        <option value="manager">Менеджер</option>
+      </select>
+      <button onclick="checkPassword()" class="login-btn">Войти</button>
+      <div id="loginError" class="login-error"></div>
+    </div>
+  </div>
+
+  <div id="adminContent" style="display: none;">
+    <h1>Challenge Gym - Admin Panel</h1>
+    
+    <!-- Шапка с пользователем -->
+    <div class="user-header">
+      <span id="currentUser"></span>
+      <button onclick="logout()" class="logout-btn">Выйти</button>
+    </div>
+
+    <!-- СЧЕТЧИКИ -->
+    <div class="counters">
+      <div class="counter-card">
+        <h3>Клиентов</h3>
+        <span id="clientCount">0</span>
+      </div>
+      <div class="counter-card">
+        <h3>Тренеров</h3>
+        <span id="trainerCount">0</span>
+      </div>
+      <div class="counter-card">
+        <h3>Тренировок</h3>
+        <span id="sessionCount">0</span>
+      </div>
+    </div>
+
+    <!-- КНОПКА ОЧИСТКИ (только для админа) -->
+    <div id="adminOnlySection" style="text-align: right; margin-bottom: 20px; display: none;">
+      <button onclick="clearAllData()" style="background-color: #e74c3c;" class="danger-btn">Очистить всё</button>
+    </div>
+
+    <section>
+      <h2>Добавить клиента</h2>
+      <input type="text" id="clientName" placeholder="Имя клиента">
+      <input type="tel" id="clientPhone" placeholder="Телефон">
+      <button onclick="addClient()">Добавить клиента</button>
+    </section>
+
+    <section>
+      <h2>Добавить тренера</h2>
+      <input type="text" id="trainerName" placeholder="Имя тренера">
+      <select id="trainerSport">
+        <option value="boxing">Бокс</option>
+        <option value="mma">ММА</option>
+        <option value="gym">Качалка</option>
+      </select>
+      <button onclick="addTrainer()">Добавить тренера</button>
+    </section>
+
+    <section>
+      <h2>Записать клиента на тренировку</h2>
+      <select id="selectClient"></select>
+      <select id="selectTrainer"></select>
+      <input type="datetime-local" id="sessionTime" placeholder="Время тренировки">
+      
+      <div class="price-info" id="priceDisplay">
+        Стоимость: <span>0 сум</span>
+      </div>
+      
+      <label class="checkbox-label">
+        <input type="checkbox" id="sessionPaid"> Оплачено
+      </label>
+      
+      <button onclick="addSession()">Записать</button>
+    </section>
+
+    <section>
+      <h2>Фильтры</h2>
+      <select id="filterTrainer">
+        <option value="">Все тренеры</option>
+      </select>
+      <select id="filterPaid">
+        <option value="all">Все тренировки</option>
+        <option value="paid">Оплаченные</option>
+        <option value="unpaid">Неоплаченные</option>
+      </select>
+      <button onclick="applyFilters()">Применить фильтр</button>
+      <button onclick="resetFilters()">Сбросить</button>
+    </section>
+
+    <section>
+      <h2>Список клиентов</h2>
+      <ul id="clientList"></ul>
+
+      <h2>Список тренеров</h2>
+      <ul id="trainerList"></ul>
+
+      <h2>Записи на тренировки</h2>
+      <ul id="sessionList"></ul>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
